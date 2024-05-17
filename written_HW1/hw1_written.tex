@@ -1,0 +1,373 @@
+%
+% LO, Li-yu 
+%
+
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[]{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[a4paper, portrait, margin=1.0in]{geometry}
+\usepackage{hyperref}
+\usepackage{algorithm,algpseudocode}
+\usepackage{indentfirst}
+\usepackage{soul}
+\usepackage{color}
+
+
+%
+\begin{document}
+%
+   \title{\textbf{COMP5212 Machine Learning}  \\
+   Written Homework 1}
+      
+   \author{LO, Li-yu \\ 20997405 \\ e-mail: lloac@connect.hkust.hk}
+          
+   \date{25/Sep/2023}
+
+   \maketitle
+
+   
+\section*{Problem 1}
+\subsection*{(a)}
+\noindent $\triangle$ 
+Get $\frac{\partial g}{\partial z}$,
+
+\begin{align*}
+   \frac{\partial}{\partial z}(1+e^{-z})^{-1} 
+   &=(-1) \cdot (1+e^{-z})^{-2} \cdot (1+e^{-z})^{'} \\
+   &=(1+e^{-z})^{-2} \cdot e^{-z} \\
+   &=\frac{1}{(1+e^{-z})} \cdot \frac{e^{-z}}{(1+e^{-z})} \\
+   &=\frac{1}{(1+e^{-z})} \cdot \frac{1}{(1+e^{z})}
+\end{align*} 
+
+\noindent $\triangle$
+Then, get $g(z)(1-g(z))$, where $g(z)=\frac{1}{1+e^{-z}}$
+
+\begin{align*}
+   g(z)(1-g(z)) &= 
+   \frac{1}{(1+e^{-z})} \cdot (1 - \frac{1}{(1+e^{-z})}) \\
+   &=\frac{1}{(1+e^{-z})} \cdot \frac{(1+e^{-z})}{(1+e^{-z})} - \frac{1}{(1+e^{-z})} \\
+   &=\frac{1}{(1+e^{-z})} \cdot \frac{e^{-z}}{(1+e^{-z})} \\
+   &=\frac{1}{(1+e^{-z})} \cdot \frac{1}{(1+e^{z})} \\
+\end{align*} 
+
+\noindent $\triangle$
+Therefore, from above, it can be seen that 
+
+\begin{align*}
+   \frac{\partial g}{\partial z} = g(z)(1-g(z)) 
+\end{align*} 
+
+\subsection*{(b)}
+\noindent $\triangle$
+From above, $g(z) = \frac{1}{(1+e^{-z})}$. \\
+\noindent $\triangle$
+Get $1-g(z)$,
+
+\begin{align*}
+   1-g(z) &= \frac{(1+e^{-z})}{1+e^{-z}} - \frac{1}{1+e^{-z}} \\
+   &=\frac{e^{-z}}{1+e^{-z}} \\
+   &=\frac{1}{(1+e^{z})}
+\end{align*} 
+
+\noindent $\triangle$
+Then get $g(-z)$,
+\begin{align*}
+   g(-z) &= \frac{1}{1+e^{-(-z)}}\\
+   &=\frac{1}{(1+e^{z})}
+\end{align*} 
+
+\noindent $\triangle$
+Hence, from above, it can be seen that
+\begin{align*}
+   1-g(z) = g(-z)
+\end{align*} 
+
+\section*{Problem 2}
+\subsection*{(a)}
+\noindent $\triangle$ 
+Recall a function is deemed convex, if and only if 
+\begin{align*}
+   f(\theta z_{1} + (1-\theta) z_{2}) 
+      \leq 
+   \theta * f(z_{1}) + (1 - \theta) * f(z_{2}), 
+   \theta \in [0,1]
+\end{align*} 
+
+\hangindent2em
+\hangafter=0
+\noindent Hence, below will try to prove 
+$f(w) = g(w^{T}x + y)$ is a convex function,
+where
+
+\begin{align*}
+   g( (\theta w_{1} + (1-\theta) w_{2})^{T}x + y) \leq 
+   \theta g(w_{1}^{T}x + y) +  (1-\theta) g(w_{2}^{T}x + y)
+\end{align*}
+
+\noindent $\triangle$ 
+As 
+
+\begin{align*}
+   (\theta w_{1} + (1-\theta) w_{2})^{T}x + y &=
+   \theta w_{1}^{T}x + (1-\theta) w_{2}^{T}x + y \\
+   &= \theta w_{1}^{T}x + \theta y + (1-\theta) w_{2}^{T}x + y - \theta y \\
+   &= \theta (w_{1}^{T}x + y) + (1-\theta) (w_{2}^{T}x + y)
+\end{align*}
+
+\hangindent2em
+\hangafter=0
+\noindent Therefore, 
+
+\begin{align*}
+   &g( (\theta w_{1} + (1-\theta) w_{2})^{T}x + y) \leq 
+   \theta g(w_{1}^{T}x + y) +  (1-\theta) g(w_{2}^{T}x + y)\\
+   \Rightarrow &
+   g(\theta (w_{1}^{T}x + y) + (1-\theta) (w_{2}^{T}x + y)) \leq
+   \theta g(w_{1}^{T}x + y) +  (1-\theta) g(w_{2}^{T}x + y)
+\end{align*}
+
+\hangindent2em
+\hangafter=0
+\noindent  \\
+and as $g$ is convex,
+we hence have
+
+\begin{align*}
+   g(\theta z_{1} + (1-\theta) z_{2}) \leq \theta g(z_{1}) + (1-\theta) g(z_{2})
+\end{align*}
+
+\noindent $\triangle$ Hence, from above:
+
+\hangindent2em
+\hangafter=0
+\noindent  
+we let $z_{1} = w_{1}^{T}x + y$ and $z_{2} = w_{2}^{T}x + y$.
+Hence, $g(\langle w,x \rangle + y)$ is convex, 
+and hence $f(w)$ is convex.
+
+\subsection*{(b)}
+\noindent $\triangle$ Again, $g(x)$ is convex if and only if,
+
+\begin{align*}
+   g(\theta x_{1} + (1-\theta) x_{2}) \leq 
+   \theta g(x_{1}) + (1-\theta) g(x_{2})
+\end{align*}
+
+\noindent $\triangle$ And,
+
+\begin{align*}
+   g(\theta x_{1} + (1-\theta) x_{2}) 
+   &= max \{ f_{1}, f_{2},..., f_{r} \} \\
+   &= max \{ 
+      f_{1}(\theta x_{1} + (1-\theta) x_{2}),
+      f_{2}(\theta x_{1} + (1-\theta) x_{2}),
+      ...,
+      f_{r}(\theta x_{1} + (1-\theta) x_{2}),
+      \} \\
+   &\leq max \{ \\
+      &\qquad \theta f_{1}(x_{1}) + (1 - \theta) + f_{1}(x_{2}), \\
+      &\qquad \theta f_{2}(x_{1}) + (1 - \theta) + f_{2}(x_{2}), \\
+      &\qquad..., \\
+      &\qquad\theta f_{r}(x_{1}) + (1 - \theta) + f_{r}(x_{2}) \\
+      &\quad\}
+      \quad \\
+      &\qquad(as \quad f \quad is \quad convex) \\
+   &\leq \theta max \{f_{1}(x_{1}), f_{2}(x_{1}),...,f_{r}(x_{1})\}
+    + (1-\theta) max \{f_{1}(x_{2}), f_{2}(x_{2}),...,f_{r}(x_{2})\} \\
+      &\qquad(as \quad max\{\} \quad is \quad convex) \\   
+   &= \theta g(x_{1}) + (1-\theta)g(x_{2})
+\end{align*}
+
+\noindent $\triangle$ Therefore, $g(x)$ is convex.
+
+\section*{Problem 3}
+\subsection*{(a)}
+\noindent $\triangle$ 
+First, by mean value theorem, we have: for a continuous function $f$
+on a closed interval $[a,b]$, $\exists c$, such that:
+
+\begin{align*}
+   f^{'}(c) = \frac{f(b)-f(a)}{b-a}
+\end{align*}
+
+\noindent $\triangle$ Therefore, for function $\nabla f(x)$ 
+there $\exists z$ such that,
+
+\begin{align*}
+   \nabla^{2}f(z) \cdot (x-y) = \nabla f(x) - \nabla f(y)
+\end{align*}
+
+\noindent $\triangle$ Meanwhile, we know that 
+a function is L-smooth when,
+
+\begin{align*}
+   \| \nabla f(x) - \nabla f(y) \| \leq L \|x-y\|
+\end{align*}
+
+\noindent $\triangle$ Therefore, from above,
+\begin{align*}
+   \|\nabla^{2}f(z) \cdot (x-y)\| &=
+   \|\nabla f(x) - \nabla f(y)\| \\
+   &\leq L \|x-y\|
+\end{align*}
+
+\hangindent2em
+\hangafter=0
+\noindent and hence,
+
+\begin{align*}
+   & \|\nabla^{2}f(z) \cdot (x-y)\|\leq L \|x-y\| \\
+   \Rightarrow&
+   \|\nabla^{2}f(z) \cdot (x-y)\|
+   \leq \|\nabla^{2}f(z)\| \cdot \|(x-y)\|
+   \leq L \|x-y\| \\
+   &\quad(from \quad Cauchy-Schwarz \quad inequality) \\
+   \Rightarrow&
+   \|\nabla^{2}f(z)\| \leq L
+\end{align*}
+
+\hangindent2em
+\hangafter=0
+\noindent assume the case of 2-norm and with the fact that 
+$\nabla^{2} f(x)$ is symmetric, 
+the above expression indicates, 
+
+\begin{align*}
+   \nabla^{2}f(x) \preceq LI
+\end{align*}
+
+\noindent $\triangle$
+Echoing the problem description and from above, we therefore have,
+
+\begin{align*}
+   &\|\nabla^{2}f(z) \cdot (x-y)\|\leq L \|x-y\| \\
+   \Rightarrow&
+   \|(\nabla^{2}f(z) \cdot (x-y))^{T}(x-y)\|\leq L \|x-y\|^{2} \\
+   \Rightarrow&
+   (\nabla^{2}f(z) \cdot (x-y))^{T}(x-y)\leq L \|x-y\|^{2} \\
+   \Rightarrow&
+   \langle \nabla^{2}f(z)(x-y),(x-y) \rangle \leq L \|x-y\|^{2} \\
+   \Rightarrow&
+   \langle \nabla^{2}f(z)v,v \rangle \leq L \|v\|^{2} \\
+\end{align*}
+
+\subsection*{(b)}
+\noindent $\triangle$
+First, we let
+
+\begin{align*}
+   z(t) &= x + t(y-x)\\
+   g(t) &= f(z(t))\\
+   \therefore  
+   g(0) &=f(x) \\
+   g(1) &=f(y) \\
+   g^{'}(t) &= \nabla f(z(t))^{T}(y-x) \\
+   g^{'}(0) &= \nabla f(x)^{T}(y-x)
+\end{align*}
+
+\noindent $\triangle$
+Also, with fundemental theorem, we have
+
+\begin{align*}
+   g(1) - g(0) &= 
+    \int_{1}^{0} g^{'}(t) \,dt \\
+   \therefore g(1) - g(0) - g^{'}(0) &= \int_{1}^{0} (g^{'}(t)-g^{'}(0))\,dt \\
+   &\leq \int_{1}^{0} \|g^{'}(t)-g^{'}(0)\| \,dt
+\end{align*}
+
+\noindent $\triangle$
+And for $\|g^{'}(t)-g^{'}(0)\|$, 
+
+\begin{align*}
+   \|g^{'}(t)-g^{'}(0)\| &= \| \nabla f(z(t)^{T}(y-x) - \nabla f(x)^{T}(y-x)) \| \\
+   &= \| (\nabla f(z(t)) - \nabla f(x))^{T}(y-x) \| \\
+   &\leq \| (\nabla f(z(t)) - \nabla f(x)) \| \cdot \|(y-x) \| \\
+   &\leq L \|z(t) - x \| \cdot \|y-x \| \\
+   &=L\| x+ty - tx - x\| \cdot \|y-x\| \\
+   &=tL \|y-x\|^{2}
+\end{align*}
+
+\noindent $\triangle$
+Therefore,
+
+\begin{align*}
+   \int_{1}^{0} \|g^{'}(t)-g^{'}(0)\| \,dt 
+   &\leq \int_{1}^{0} tL \|y-x\|^{2} \,dt \\
+   &=L\|y-x\|^{2} [\frac{1}{2} t^2]^1_0 \\
+   &=\frac{1}{2}L \|y-x\|^{2}
+\end{align*}
+
+\noindent $\triangle$
+Therefore,
+
+\begin{align*}
+   g(1) - g(0) - g^{'}(0) &= f(y) - f(x) - \nabla f(x)^{T}(y-x) \\
+   &\leq \frac{1}{2} L \|y-x\|^{2} 
+\end{align*}
+
+and get,
+
+\begin{align*}
+   \Rightarrow f(y) \leq f(x) + \nabla f(x)^{T}(y-x) + \frac{1}{2}L\|y-x\|^{2}
+\end{align*}
+
+
+
+% \begin{align}
+%    \label{eqn:KKT_mat}
+%    \begin{bmatrix}
+%       H(f(x)) & A^{T}\\
+%       A & 0\\
+%    \end{bmatrix}
+%    \begin{bmatrix}
+%       \Delta x_{pd}\\
+%       \Delta \nu_{pd} \\
+%    \end{bmatrix} 
+%    = -
+%    \begin{bmatrix}
+%       g(f(x)) + A^{T}\nu\\
+%       Ax - b \\
+%    \end{bmatrix} 
+% \end{align}   
+
+
+% \begin{algorithm}
+%    \label{alg1}
+%    \caption{Infeasible Start Newton Method}
+%    \label{pseudoPSO}
+%    \begin{algorithmic}[1]
+%    \State \textbf{Given} \;starting point $x\in dom f$ , $\nu$,
+%    tolerance $\epsilon > 0$, $\alpha \in (0,1/2)$, $\beta \in (0,1)$.  
+%    \State \textbf{Repeat}  \\
+%    \;\;\;\;1. Compute primal and dual Newton steps $\Delta x_{\mathrm{nt}}, 
+%    \Delta \nu_{\mathrm{nt}}$. \\
+%    \;\;\;\;2. Backtracking line search on $\|r\|_2$\\
+%    \;\;\;\;\;\;\;\;$t \gets 1$\\
+%    \;\;\;\;\;\;\;\;\textbf{while}
+%    $\|r(x+t\Delta x_{\mathrm{nt}},\nu+t\Delta \nu_{\mathrm{nt}})\|_2 
+%    > (1-\alpha t)\|r(x,\nu)\|_2$ \\
+%    \;\;\;\;\;\;\;\;\;\;\;\;$t \coloneqq \beta t$\\
+%    \;\;\;\;3. Update, $x \gets x + t\Delta x_{\mathrm{nt}}, 
+%    \nu \gets \nu + t\Delta \nu_{\mathrm{nt}}$\\
+
+%    \State \textbf{Until}  \\
+%    \;\;\;\;$Ax = b$ and $\|r(x,\nu)\|_2 \leq \epsilon$
+
+    
+%    \end{algorithmic}
+% \end{algorithm}
+
+
+
+
+
+\bibliographystyle{IEEEtran}
+% \bibliography{references}
+
+\end{document}
+

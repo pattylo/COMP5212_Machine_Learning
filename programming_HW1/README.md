@@ -1,0 +1,4 @@
+## Instruction on running program_hw1.ipynb
+- This project is written in ```.ipynb``` file. To run it, you could either fire up Jupyter Notebook on your computer to run all cells, or execute it in VSCode IDE environment.
+- Also note that there are two files: one (```program_hw1.ipynb```) for general model training, and another (```learning_rate_analysis.ipynb```) for learning rate analysis. To input different parameters, one could go to section "Hyperparameters Settings" to modify the value, and run the code.
+- The submitted files do not include MNIST data. One should change the file path when running the download section accordingly to the local folder name.
